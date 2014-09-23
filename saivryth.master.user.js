@@ -11,14 +11,64 @@
 
 var saivryth = {
     noStyle : function() {
-       $( "span" ).css( "background-color", "");
-       $( "th" ).css( "background-color", "");
-       $( "a" ).css( "background-color", "");
+       $( "a, b, i, th, span" ).css({ "background-color" : "", "color" : ""});
        $( "td" ).removeAttr("width", "").removeAttr("align", "").addClass("foo").css( "background-color", "");
-       $( "table" ).removeAttr("width", "").width( "8in").removeAttr("align", "").addClass("foo");
+       $( "table" ).removeAttr("width", "").removeAttr("align border", "").addClass("foo");
+	   $( "body > table" ).width( "8in");
+	},
+	fixStyle : function() {
+//		$( "i b font[size=5]" ).replaceWith( function(){
+		$( "i b font[size=5], b i font[size=5]" ).each(function() {
+			$( this ).replaceWith( "<h3>" + $( this ).text() + "</h3>" );
+		//	console.log( $(this).text() );
+		});
+	//alert( $( "i b font[size=5]" ).text() );
+    },
+	url : function(){	//urls with special rules
+		var loc = window.location.href;
+		loc = loc.substring(loc.indexOf('saivryth'));
+
+		if( saivryth.pages[loc] ){
+//			alert( loc );
+			saivryth.pages[loc].rules();
+		}
+	},
+	pages : {
+		"saivryth.org/xixoghk.htm" : {
+			"rules" : function(){
+			//	reorganizes the character sheet to flow and print better
+				function tnames() {
+					var ct = 0;
+					$("body > table").each( function(){		//only runs through the direct descendants of body
+						var cls = [ "tone", "ttwo", "tthree" ];
+						$(this).addClass( cls[ct] );
+						ct++;
+					});
+				}
+				tnames();
+				
+				var td1 = "table:first > tbody > tr:first > td:first";
+				var td2 = "table:first > tbody > tr:first > td:last";
+				var htm1 = $(td1).html();	//save info from row1, 1st TD
+				var htm2 = $(td2).html();	//save info from row1, 3rd TD
+
+				$( "tr:first > td:eq(1)").attr( "colspan", "3" );
+				$(td1).remove();
+				$(td2).remove();
+				$('<tr><td colspan="3" class="tab3">'+htm2+'</td></tr>').insertAfter('table:first > tbody > tr:first');
+				$('<tr><td colspan="3" class="pics">'+htm1+'</td></tr>').insertBefore('table:first > tbody > tr:first');
+				
+				//move the pictures out of their various parent elements
+				$(".pics").append( $("img").removeAttr("width", "" ).removeAttr("height", "" ).width( "33%") );
+				$(".pics p, .pics font").remove();
+
+			}
+		}
 	},
     go : function(){
 		saivryth.noStyle();
+		saivryth.fixStyle();
+		saivryth.url();
 //        alert( "go!" );
     }
     
