@@ -2,7 +2,7 @@
 // @name       Saivryth.org global fixes
 // @author		codeGlaze
 // @namespace  http://use.i.E.your.homepage/
-// @version    0.1.4
+// @version    0.1.5
 // @description  Script specifically for helping migrate Saivryth to better underlying structure
 // @match      http://*.saivryth.org/*
 // @require    http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
