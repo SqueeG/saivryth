@@ -2,7 +2,7 @@
 // @name       Saivryth.org global fixes
 // @author		codeGlaze
 // @namespace  http://use.i.E.your.homepage/
-// @version    0.1.5
+// @version    0.1.6
 // @description  Script specifically for helping migrate Saivryth to better underlying structure
 // @match      http://*.saivryth.org/*
 // @require    http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js
@@ -10,20 +10,22 @@
 // ==/UserScript==
 
 var saivryth = {
+
+	fltr : { "http://saivryth.org/contenttable.htm":true, "http://www.saivryth.org/contenttable.htm":true },
+
     noStyle : function() {
        $( "a, b, i, th, span" ).css({ "background-color" : "", "color" : ""});
        $( "td" ).removeAttr("width", "").removeAttr("align", "").addClass("foo").css( "background-color", "");
        $( "table" ).removeAttr("width", "").removeAttr("align border", "").addClass("foo");
 	   $( "body > table" ).width( "8in");
 	},
+	
 	fixStyle : function() {
-//		$( "i b font[size=5]" ).replaceWith( function(){
 		$( "i b font[size=5], b i font[size=5]" ).each(function() {
-			$( this ).replaceWith( "<h3>" + $( this ).text() + "</h3>" );
-		//	console.log( $(this).text() );
+			$( this ).replaceWith( "<h3>" + $( this ).html() + "</h3>" );
 		});
-	//alert( $( "i b font[size=5]" ).text() );
     },
+	
 	url : function(){	//urls with special rules
 		var loc = window.location.href;
 		loc = loc.substring(loc.indexOf('saivryth'));
@@ -80,7 +82,7 @@ var saivryth = {
 	},
     go : function(){
 		saivryth.noStyle();
-		saivryth.fixStyle();
+		( saivryth.fltr[ window.location.href ]  ) ? '' : saivryth.fixStyle();	//ignore the ToC page
 		saivryth.url();
 //        alert( "go!" );
     }
