@@ -1,4 +1,6 @@
+/* version 0.1.4 */
 @-moz-document domain("saivryth.org") {
+
 body, table, tr, td, th, p, span { 
   background: white;
 }
@@ -20,17 +22,32 @@ table {
 
 td table {
 	width: 100%;
-  	border: none;
+ /* 	border-style: solid;
+    border-right-color: #ff0000;
+  	border-bottom-color: #ff0000;
+  	border-left: none;
+  	border-top: none;*/
 }
 
-td table tr, td table th, td table td { border: none; border-collapse: none; }
+td table tr, 
+td table th 
+/*td table td*/ { 
+  border: none; 
+  border-collapse: none; 
+}
 
 td { 
 	width:auto;
 	/*overflow:hidden;*/
 	white-space:normal;
 	word-wrap: break-word;
-	padding: .25em; }
+	padding: .25em; 
+	border-style: solid;
+    border-right-color: #000;
+  	border-bottom-color: #000;
+  	border-left: none;
+  	border-top: none;
+}
 
 body, b, i, p, div, h1, h2, h3, h4, h5, font,
 td font,
@@ -56,6 +73,8 @@ td img {
 }
 
 .menu { display:none; }
+
+/* end moz bit */
 }
 
 @-moz-document url("http://saivryth.org/kingdoms_of_saivryth.htm") {
