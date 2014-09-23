@@ -36,7 +36,7 @@ var saivryth = {
 	pages : {
 		"saivryth.org/xixoghk.htm" : {
 			"rules" : function(){
-			//	reorganizes the character sheet to flow and print better
+			//name the tables
 				function tnames() {
 					var ct = 0;
 					$("body > table").each( function(){		//only runs through the direct descendants of body
@@ -47,6 +47,7 @@ var saivryth = {
 				}
 				tnames();
 				
+			//	reorganizes the character sheet to flow and print better
 				var td1 = "table:first > tbody > tr:first > td:first";
 				var td2 = "table:first > tbody > tr:first > td:last";
 				var htm1 = $(td1).html();	//save info from row1, 1st TD
@@ -58,9 +59,21 @@ var saivryth = {
 				$('<tr><td colspan="3" class="tab3">'+htm2+'</td></tr>').insertAfter('table:first > tbody > tr:first');
 				$('<tr><td colspan="3" class="pics">'+htm1+'</td></tr>').insertBefore('table:first > tbody > tr:first');
 				
-				//move the pictures out of their various parent elements
+			//move the pictures out of their various parent elements
 				$(".pics").append( $("img").removeAttr("width", "" ).removeAttr("height", "" ).width( "33%") );
 				$(".pics p, .pics font").remove();
+				
+			//do the same movements to "table two (ttwo)"
+				td1 = ".ttwo > tbody > tr:first > td:first";
+				td2 = ".ttwo > tbody > tr:first > td:last";
+				htm1 = $(td1).html();	//save info from row1, 1st TD
+				htm2 = $(td2).html();	//save info from row1, 3rd TD
+				
+				$( ".ttwo tr:first > td:eq(1)").attr( "colspan", "3" );
+				$(td1).remove();
+				$(td2).remove();
+				$('<tr><td colspan="3" class="tab3">'+htm2+'</td></tr>').insertAfter('.ttwo > tbody > tr:first');
+				$('<tr><td colspan="3" class="pics">'+htm1+'</td></tr>').insertBefore('.ttwo > tbody > tr:first');
 
 			}
 		}
